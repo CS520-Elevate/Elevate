@@ -21,41 +21,27 @@ class View(Frame):
 
         self.pack(fill=BOTH, expand=1)
 
-        quitButton = Button(self, text="  Quit  ", command=self.client_exit)
-        latitude_entry_start = Entry(self, width=10)
-        longitude_entry_start = Entry(self, width=10)
-        start = Label(self, text="Start")
-        lat_label_start = Label(self, text="Latitude")
-        long_label_start = Label(self, text="Longitude")
-        latitude_entry_end = Entry(self, width=10)
-        longitude_entry_end = Entry(self, width=10)
+        Label(self, text="Start").grid(row=1, column=1, columnspan=2)
+        Label(self, text="Latitude").grid(row=2, column=1)
+        Label(self, text="Longitude").grid(row=3, column=1)
+        Entry(self, width=10).grid(row=2, column=2)
+        Entry(self, width=10).grid(row=3, column=2)
 
-        end = Label(self, text="End")
-        lat_label_end = Label(self, text="Latitude")
-        long_label_end = Label(self, text="Longitude")
-        navigate_button = Button(self, text="  Navigate  ", command=self.navigate)
+        Label(self, text="End").grid(row=1, column=3, columnspan=2)
+        Label(self, text="Latitude").grid(row=2, column=3)
+        Label(self, text="Longitude").grid(row=3, column=3)
+        Entry(self, width=10).grid(row=2, column=4)
+        Entry(self, width=10).grid(row=3, column=4)
+
+        Button(self, text="  Navigate  ").grid(row=2, column=5, rowspan=2)
 
         image = Image.open("image.png")
         img = ImageTk.PhotoImage(image)
         img_label = Label(self, image=img)
         img_label.image = img
+        img_label.grid(row=4, column=1, columnspan=5)
 
-        start.place(x=100, y=5)
-        lat_label_start.place(x=20, y=40)
-        latitude_entry_start.place(x=100, y=40)
-        long_label_start.place(x=20, y=70)
-        longitude_entry_start.place(x=100, y=70)
-
-        end.place(x=320, y=5)
-        lat_label_end.place(x=220, y=40)
-        latitude_entry_end.place(x=300, y=40)
-        long_label_end.place(x=220, y=70)
-        longitude_entry_end.place(x=300, y=70)
-
-        img_label.pack(padx=20, pady=100, anchor=CENTER)
-
-        navigate_button.place(x=410, y=55)
-        quitButton.place(x=400, y=450)
+        Button(self, text="  Quit  ", command=self.client_exit).grid(row=5, column=5)
 
     def navigate(self):
         None
@@ -65,7 +51,7 @@ class View(Frame):
 
 
 root = Tk()
-root.geometry("500x500")
+root.resizable(0,0)
 
 app = View(root)
 
