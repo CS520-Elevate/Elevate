@@ -8,7 +8,13 @@ from Model import *
 # TODO: Define __init__ and run in Main class
 class Main(object):
     def __init__(self):
-        None
+        self.init_view()
 
-    def run(self):
-        None
+    def init_view(self):
+        root = Tk()
+        root.resizable(0, 0)
+        View(root)
+        root.mainloop()
+
+
+Main()
