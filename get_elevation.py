@@ -13,7 +13,7 @@ get_elevation takes in decimals for starting point latitude, starting point long
 ending point longitude, and an integer for points of precision. It returns a triple where the first value
 is a list of elevation points (in meters) between the start coordinate point and the end coordinate point, 
 a decimal representing the distance between the two points in kilometers, and an integer representing the 
-total elevationchange between the two coordinate points. The precision value determines how many elevation 
+total elevation change between the two coordinate points. The precision value determines how many elevation 
 points evenly spaced between the start and end point are returned.
 '''
 def get_elevation(start_lat, start_long, end_lat, end_long, precision):
@@ -106,5 +106,6 @@ def get_elevation(start_lat, start_long, end_lat, end_long, precision):
         i+=1
 
     return elev_list, distance, change
+    
 #print an example
 print(get_elevation(20,20,50,50,100))
