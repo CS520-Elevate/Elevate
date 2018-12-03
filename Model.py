@@ -51,7 +51,7 @@ class MapPath:
         return self.__difficulty
 
 def getelevation():
-None
+    None
 
 
 def dijkstra_search(map, starting_point, ending_point):
