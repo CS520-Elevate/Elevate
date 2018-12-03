@@ -17,6 +17,29 @@ def navigate():
 def client_exit():
     exit()
 
+# Very simple function to determine if string input is a valid decimal
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+# The next 2 functions are used to validate user input. Returns true if input is valid
+def validateLatitude(input):
+
+    if(is_number(input) and float(input) <= 90 and float(input) >= -90):
+        return True
+    else:
+        return False
+
+def validateLongitude(input):
+
+    if(is_number(input) and float(input) <= 180 and float(input) >= -180):
+        return True
+    else:
+        return False
+
 
 class View(Frame):
     def __init__(self, master=None):
