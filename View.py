@@ -14,9 +14,6 @@ def navigate():
     None
 
 
-def client_exit():
-    exit()
-
 # Very simple function to determine if string input is a valid decimal
 def is_number(s):
     try:
@@ -58,15 +55,19 @@ class View(Frame):
         Label(self, text="Start").grid(row=1, column=1, columnspan=2)
         Label(self, text="Latitude").grid(row=2, column=1)
         Label(self, text="Longitude").grid(row=3, column=1)
-        Entry(self, width=10).grid(row=2, column=2)
-        Entry(self, width=10).grid(row=3, column=2)
+        start_lat = Entry(self, width=10)
+        start_long = Entry(self, width=10)
+        start_lat.grid(row=2, column=2)
+        start_long.grid(row=3, column=2)
 
         # End coordinates area
         Label(self, text="End").grid(row=1, column=3, columnspan=2)
         Label(self, text="Latitude").grid(row=2, column=3)
         Label(self, text="Longitude").grid(row=3, column=3)
-        Entry(self, width=10).grid(row=2, column=4)
-        Entry(self, width=10).grid(row=3, column=4)
+        end_lat = Entry(self, width=10)
+        end_long = Entry(self, width=10)
+        end_lat.grid(row=2, column=4)
+        end_long.grid(row=3, column=4)
 
         # Navigate button which will execute the program
         Button(self, text="  Navigate  ").grid(row=2, column=5, rowspan=2)
@@ -103,12 +104,17 @@ class View(Frame):
                 c.delete(tiles[row][col])
                 tiles[row][col] = None
 
+        def get_entry():
+            return [start_lat.get(), start_long.get(), end_lat.get(), end_long.get()]
+
         w = img.width()
         h = img.height()
         c = Canvas(self, width=w, height=h)
         c.grid(row=5, column=1, columnspan=5)
         c.create_image(0, 0, image=img, anchor='nw')
         c.bind("<Button-1>", callback)
+
+
 
         # Quit button
         Button(self, text="  Quit  ", command=client_exit).grid(row=6, column=5, pady=5)
