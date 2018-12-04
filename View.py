@@ -6,13 +6,14 @@ from tkinter import ttk
 from tkinter import *
 from PIL import Image, ImageTk
 
-difficulty = 0
-
 
 # TODO: Link navigate function to Model
 def navigate():
     None
 
+
+def client_exit():
+    exit()
 
 # Very simple function to determine if string input is a valid decimal
 def is_number(s):
@@ -42,6 +43,7 @@ class View(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
 
+        self.difficulty = IntVar()
         self.master = master
 
         self.init_window()
@@ -50,6 +52,8 @@ class View(Frame):
         self.master.title("Elevate")
 
         self.pack(fill=BOTH, expand=1)
+
+        self.difficulty.set(0)
 
         # Start coordinates area
         Label(self, text="Start").grid(row=1, column=1, columnspan=2)
@@ -73,9 +77,9 @@ class View(Frame):
         Button(self, text="  Navigate  ").grid(row=2, column=5, rowspan=2)
 
         # Radio buttons for difficulty setting
-        Radiobutton(self, text="Easy", variable=difficulty, value=0).grid(row=4, column=2)
-        Radiobutton(self, text="Medium", variable=difficulty, value=1).grid(row=4, column=3)
-        Radiobutton(self, text="Hard", variable=difficulty, value=2).grid(row=4, column=4)
+        Radiobutton(self, text="Easy", variable=self.difficulty, value=0).grid(row=4, column=2)
+        Radiobutton(self, text="Medium", variable=self.difficulty, value=1).grid(row=4, column=3)
+        Radiobutton(self, text="Hard", variable=self.difficulty, value=2).grid(row=4, column=4)
 
         # TODO: Have image area display the navigated map
         # Display area, currently static image
