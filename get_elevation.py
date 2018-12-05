@@ -66,7 +66,7 @@ def get_elevation(start_lat, start_long, end_lat, end_long, precision):
         d_list.append(dp)
     d_list_rev=d_list[::-1] #reverse list
 
-
+    
     #CONSTRUCT JSON
     d_ar=[{}]*len(lat_list)
     for i in range(len(lat_list)):
@@ -98,14 +98,14 @@ def get_elevation(start_lat, start_long, end_lat, end_long, precision):
     max_elev=max(elev_list)
     distance=d_list_rev[-1]
 
+    #calculate total elevation traversed
     change = 0
     i = 1
-
     while i < len(elev_list):        
         change += abs(elev_list[i-1] - elev_list[i])
         i+=1
 
     return elev_list, distance, change
-    
+
 #print an example
 print(get_elevation(20,20,50,50,100))
