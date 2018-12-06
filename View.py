@@ -8,8 +8,8 @@ from PIL import Image, ImageTk
 
 
 # TODO: Link navigate function to Model
-def navigate():
-    None
+def navigate(input):
+    print (input)
 
 
 def client_exit():
@@ -73,8 +73,11 @@ class View(Frame):
         end_lat.grid(row=2, column=4)
         end_long.grid(row=3, column=4)
 
+        def get_entry():
+            return [start_lat.get(), start_long.get(), end_lat.get(), end_long.get()]
+
         # Navigate button which will execute the program
-        Button(self, text="  Navigate  ").grid(row=2, column=5, rowspan=2)
+        Button(self, text="  Navigate  ", command = navigate(get_entry())).grid(row=2, column=5, rowspan=2)
 
         # Radio buttons for difficulty setting
         Radiobutton(self, text="Easy", variable=self.difficulty, value=0).grid(row=4, column=2)
@@ -107,9 +110,6 @@ class View(Frame):
             else:
                 c.delete(tiles[row][col])
                 tiles[row][col] = None
-
-        def get_entry():
-            return [start_lat.get(), start_long.get(), end_lat.get(), end_long.get()]
 
         w = img.width()
         h = img.height()
