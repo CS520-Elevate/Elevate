@@ -8,12 +8,10 @@ from PIL import Image, ImageTk
 
 
 # TODO: Link navigate function to Model
-def navigate(input):
-    print (input)
-
 
 def client_exit():
     exit()
+
 
 # Very simple function to determine if string input is a valid decimal
 def is_number(s):
@@ -23,17 +21,17 @@ def is_number(s):
     except ValueError:
         return False
 
+
 # The next 2 functions are used to validate user input. Returns true if input is valid
 def validateLatitude(input):
-
-    if(is_number(input) and float(input) <= 90 and float(input) >= -90):
+    if (is_number(input) and float(input) <= 90 and float(input) >= -90):
         return True
     else:
         return False
 
-def validateLongitude(input):
 
-    if(is_number(input) and float(input) <= 180 and float(input) >= -180):
+def validateLongitude(input):
+    if (is_number(input) and float(input) <= 180 and float(input) >= -180):
         return True
     else:
         return False
@@ -49,6 +47,14 @@ class View(Frame):
         self.init_window()
 
     def init_window(self):
+        # method which returns the user-input values of latitude and longitude
+        def get_entry():
+            return [start_lat.get(), start_long.get(), end_lat.get(), end_long.get()]
+
+        # button call to navigate funtion (Should be modified to call Model.py's navigate
+        def navigate():
+            print(get_entry())
+
         self.master.title("Elevate")
 
         self.pack(fill=BOTH, expand=1)
@@ -73,11 +79,8 @@ class View(Frame):
         end_lat.grid(row=2, column=4)
         end_long.grid(row=3, column=4)
 
-        def get_entry():
-            return [start_lat.get(), start_long.get(), end_lat.get(), end_long.get()]
-
         # Navigate button which will execute the program
-        Button(self, text="  Navigate  ", command = navigate(get_entry())).grid(row=2, column=5, rowspan=2)
+        Button(self, text="  Navigate  ", command=navigate).grid(row=2, column=5, rowspan=2)
 
         # Radio buttons for difficulty setting
         Radiobutton(self, text="Easy", variable=self.difficulty, value=0).grid(row=4, column=2)
@@ -117,8 +120,6 @@ class View(Frame):
         c.grid(row=5, column=1, columnspan=5)
         c.create_image(0, 0, image=img, anchor='nw')
         c.bind("<Button-1>", callback)
-
-
 
         # Quit button
         Button(self, text="  Quit  ", command=client_exit).grid(row=6, column=5, pady=5)
