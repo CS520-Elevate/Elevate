@@ -219,14 +219,5 @@ def dijkstra_search(map, starting_point, ending_point):
     return shortest_path, dist[ending_point]
 
 
-
-
-
-
-
-
-
-    return path
-
 def astar_search():
     None

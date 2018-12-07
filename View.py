@@ -3,6 +3,7 @@ import os
 from Controller import *
 from Model import *
 from tkinter import ttk
+from OSMnx import *
 from tkinter import *
 from PIL import Image, ImageTk
 
@@ -43,17 +44,24 @@ class View(Frame):
 
         self.difficulty = IntVar()
         self.master = master
-
         self.init_window()
 
+
     def init_window(self):
+        osmnx = OSMnx()
         # method which returns the user-input values of latitude and longitude
         def get_entry():
-            return [start_lat.get(), start_long.get(), end_lat.get(), end_long.get()]
+            return [self.start_lat.get(), self.start_long.get(), self.end_lat.get(), self.end_long.get()]
 
         # button call to navigate funtion (Should be modified to call Model.py's navigate
         def navigate():
-            print(get_entry())
+            print("123", get_entry())
+            get_entr = get_entry()
+            print("typeeeeeeee", type(get_entr[0]))
+            #fig, result = 
+            osmnx.get_map(float(get_entr[0]), float(get_entr[1]), float(get_entr[2]), float(get_entr[3]), 'length')
+
+
 
         self.master.title("Elevate")
 
@@ -65,23 +73,27 @@ class View(Frame):
         Label(self, text="Start").grid(row=1, column=1, columnspan=2)
         Label(self, text="Latitude").grid(row=2, column=1)
         Label(self, text="Longitude").grid(row=3, column=1)
-        start_lat = Entry(self, width=10)
-        start_long = Entry(self, width=10)
-        start_lat.grid(row=2, column=2)
-        start_long.grid(row=3, column=2)
+        self.start_lat = Entry(self, width=10)
+        self.start_long = Entry(self, width=10)
+        self.start_lat.grid(row=2, column=2)
+        self.start_long.grid(row=3, column=2)
 
         # End coordinates area
         Label(self, text="End").grid(row=1, column=3, columnspan=2)
         Label(self, text="Latitude").grid(row=2, column=3)
         Label(self, text="Longitude").grid(row=3, column=3)
-        end_lat = Entry(self, width=10)
-        end_long = Entry(self, width=10)
-        end_lat.grid(row=2, column=4)
-        end_long.grid(row=3, column=4)
+        self.end_lat = Entry(self, width=10)
+        self.end_long = Entry(self, width=10)
+        self.end_lat.grid(row=2, column=4)
+        self.end_long.grid(row=3, column=4)
+
+
 
         # Navigate button which will execute the program
         Button(self, text="  Navigate  ", command=navigate).grid(row=2, column=5, rowspan=2)
 
+
+        
         # Radio buttons for difficulty setting
         Radiobutton(self, text="Easy", variable=self.difficulty, value=0).grid(row=4, column=2)
         Radiobutton(self, text="Medium", variable=self.difficulty, value=1).grid(row=4, column=3)
