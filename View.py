@@ -26,14 +26,14 @@ def is_number(s):
 
 # The next 2 functions are used to validate user input. Returns true if input is valid
 def validateLatitude(input):
-    if (is_number(input) and float(input) <= 90 and float(input) >= -90):
+    if is_number(input) and 90 >= float(input) >= -90:
         return True
     else:
         return False
 
 
 def validateLongitude(input):
-    if (is_number(input) and float(input) <= 180 and float(input) >= -180):
+    if is_number(input) and 180 >= float(input) >= -180:
         return True
     else:
         return False
