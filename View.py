@@ -8,6 +8,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 
 
+
 # TODO: Link navigate function to Model
 
 def client_exit():
@@ -48,18 +49,19 @@ class View(Frame):
 
 
     def init_window(self):
-        osmnx = OSMnx()
+
         # method which returns the user-input values of latitude and longitude
         def get_entry():
             return [self.start_lat.get(), self.start_long.get(), self.end_lat.get(), self.end_long.get()]
 
         # button call to navigate funtion (Should be modified to call Model.py's navigate
         def navigate():
+            osmnx = OSMnx()
             print("123", get_entry())
-            get_entr = get_entry()
-            print("typeeeeeeee", type(get_entr[0]))
             #fig, result = 
-            osmnx.get_map(float(get_entr[0]), float(get_entr[1]), float(get_entr[2]), float(get_entr[3]), 'length')
+            fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'length')
+            print("-------------------------")
+            ImageTk.imshow(fig)
 
 
 

@@ -35,7 +35,7 @@ class OSMnx():
 		# select an origin and destination node and a bounding box around them
 		origin = ox.get_nearest_node(G, (start_lat, start_long))
 		destination = ox.get_nearest_node(G, (end_lat , end_long))
-		bbox = ox.bbox_from_point(((start_lat + end_lat) / 2, (start_long + end_long) / 2), distance= 5 * self.get_distance(start_lat, start_long, end_lat, end_long), project_utm=True)
+		bbox = ox.bbox_from_point(((start_lat + end_lat) / 2, (start_long + end_long) / 2), distance= 5000, project_utm=True)
 		
 		for u, v, k, data in G_proj.edges(keys=True, data=True):
 		    data['impedance'] = self.impedance(data['length'], data['grade_abs'])
