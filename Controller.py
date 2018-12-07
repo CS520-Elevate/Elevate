@@ -39,8 +39,8 @@ if __name__ == '__main__':
 	# 	return graph
 	# x = create_map(42.3732, 72.5199, 42.3742, 72.5203)
 	# print(x.keys())
-
-	graph = build_graph((42.3732,72.5199),(47.3742,77.5209), samples=10)
+	# sample size wont bigger than 6 now working on a fix for this 
+	graph = build_graph((42.3732,72.5199),(47.3742,77.5209), samples=6)
 	vertices, edges = graph
 
 	print("vertices:")

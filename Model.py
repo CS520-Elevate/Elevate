@@ -107,7 +107,7 @@ def get_elevation_map(box):
 
     # send request
     url="https://api.open-elevation.com/api/v1/lookup"
-    response = urllib.request.Request(url,json_data,headers={'Content-Type': 'application/json'})
+    response = urllib.request.Request(url, json_data, headers={'Content-Type': 'application/json'}, method='POST')
     fp=urllib.request.urlopen(response)
 
     # process response
@@ -119,23 +119,7 @@ def get_elevation_map(box):
     return {(entry['latitude'], entry['longitude']): entry['elevation']
         for entry in response['results']}
 
-
-# def get_elevation_delta(coord0, coord1, elevations, samples=DEFAULT_SAMPLES):
-#     (xmin, ymin), (xmax, ymax) = arrange_coords(coord0, coord1)
-
-#     xdelta = (xmax - xmin) / samples
-#     ydelta = (ymax - ymin) / samples
-
-
-#     print(elevations)
-
-#     asdf = [elevations[(xmin + i*xdelta, ymin + i*ydelta)]
-#         for i in range(samples + 1)]
-
-#     print("hello")
-#     print(asdf)
-
-
+# samples cant be bigger than 6 for now
 def build_graph(coord0, coord1, samples=DEFAULT_SAMPLES):
     def neighbors(loc, size):
         """
@@ -176,20 +160,21 @@ def build_graph(coord0, coord1, samples=DEFAULT_SAMPLES):
         Computes the elevation difference between two locations in the sample matrix
         """
         (xmin, ymin), (xmax, ymax) = arrange_coords(loc0, loc1)
+        n = samples
 
         if xmin < xmax:
             # sum along x
-            return sum(elevation_matrix[x][ymin*4] for x in range(xmin*4, xmax*4 + 1))
+            return sum(elevation_matrix[x][ymin*n] for x in range(xmin*n, xmax*n + 1))
         else:
             # sum along y
-            return sum(elevation_matrix[xmin*4][y] for y in range(ymin*4, ymax*4 + 1))
+            return sum(elevation_matrix[xmin*n][y] for y in range(ymin*n, ymax*n + 1))
 
     # construct the graph
     vertices = [coord for row in box for coord in row]
     edges = {}
     for i, row in enumerate(box):
         for j, coord in enumerate(row):
-            nbrs = neighbors((i,j), num_points)
+            nbrs = neighbors((i,j), samples)
             edges[coord] = {box[nbr[0]][nbr[1]]: get_elevation_delta((i, j), nbr)
                 for nbr in nbrs}
 
