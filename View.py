@@ -7,12 +7,18 @@ from OSMnx import *
 from tkinter import *
 from PIL import Image, ImageTk
 import matplotlib.pyplot as plt
+import win32api
 
 
 
 
 
 # TODO: Link navigate function to Model
+
+# Instance of MapPath, used to hold our user input privately.
+# Navigation should use these variables (via get methods), as they are either 0 or will have been
+# checked for validity before being set.
+thisPath = MapPath()
 
 def client_exit():
     exit()
@@ -57,8 +63,24 @@ class View(Frame):
         def get_entry():
             return [self.start_lat.get(), self.start_long.get(), self.end_lat.get(), self.end_long.get()]
 
+        # method to make sure user input is valid. Returns false if not valid, True if valid
+        def validate():
+            if (validateLatitude(self.start_lat.get()) and validateLongitude(self.start_long.get())
+                and validateLatitude(self.end_lat.get()) and validateLongitude(self.end_long.get())):
+
+                thisPath.setStartLatitude(self.start_lat.get())
+                thisPath.setStartLongitude(self.start_long.get())
+                thisPath.setEndLatitude(self.end_lat.get())
+                thisPath.setEndLongitude(self.end_long.get())
+                thisPath.setDifficulty(self.difficulty.get())
+
+                return True
+            else:
+                return False
+
         # button call to navigate funtion (Should be modified to call Model.py's navigate
         def navigate():
+
             osmnx = OSMnx()
             print("123", get_entry())
             #fig, result = 
@@ -67,6 +89,19 @@ class View(Frame):
             plt.show(fig)
             print("------------In View-------------")
             print(result, ax)
+
+
+            # validate populates thisPath variables if true
+            if (validate()):
+
+                osmnx = OSMnx()
+                fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'length')
+                print("-------------------------")
+                ImageTk.imshow(fig)
+            else:
+                # invalid input
+                win32api.MessageBox(0, "Please enter valid coordinates.", "Error")
+
 
 
 
