@@ -56,7 +56,7 @@ class OSMnx():
 		folium.Marker(location=p2, icon=folium.Icon(color='red')).add_to(route_map)
 		print("------------------4321")
 		result =  self.print_route_stats(route, G_proj)
-		filepath = 'routef.html'   
+		filepath = 'routeff.html'   
 		route_map.save(filepath)
 		IFrame(filepath, width=600, height=500)        
 		return result, fig, ax
