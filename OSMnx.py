@@ -12,7 +12,7 @@ class OSMnx():
 
 		
 	def get_map(self, start_lat, start_long, end_lat, end_long, chosen_weight):
-		print("1234", start_lat, start_long, end_lat, end_long,)
+		print("123", start_lat, start_long, end_lat, end_long,)
 		place = 'Amherst'
 		place_query = {'city': 'Amherst', 'state': 'Massachusetts', 'country': 'USA'}
 		G = ox.graph_from_place(place_query, network_type='drive')
@@ -45,8 +45,15 @@ class OSMnx():
 		print("------------------4321")
 		result =  self.print_route_stats(route, G_proj)
 		fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
+		routef = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
+		route_map = ox.plot_route_folium(G, routef)
+		print("------------------4321")
+		result =  self.print_route_stats(route, G_proj)
+		filepath = 'routef.html'   
+		route_map.save(filepath)
+		IFrame(filepath, width=600, height=500)        
 		return result, fig, ax
-
+		
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
 
@@ -94,7 +101,6 @@ class OSMnx():
 
 		distance = R * c
 		return distance
-
 
 
 
