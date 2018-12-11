@@ -96,7 +96,7 @@ class OSMnx():
 	    route_lengths = ox.get_route_edge_attributes(G_proj, route, 'length')
 	    msg_3 = 'Total trip distance: {:,.0f} meters'
 	    print(msg_3.format(np.sum(route_lengths)))
-	    return ([(round(ascent,2)) ,((np.sum(route_lengths)/1000))])
+	    return ([(round(ascent,2)) ,np.round(np.sum(route_lengths),2)])
 			
 
 	def get_distance(self, sla, slo, ela, elo):
