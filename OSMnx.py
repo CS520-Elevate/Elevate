@@ -4,7 +4,9 @@ import osmnx as ox, networkx as nx, numpy as np
 ox.config(log_console=True, use_cache=True)
 from View import *
 from math import sin, cos, sqrt, atan2, radians
-
+import folium
+from IPython.display import IFrame
+ox.config(log_console=True, use_cache=True)
 
 
 # get the street network for Amherst
@@ -47,6 +49,11 @@ class OSMnx():
 		fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
 		routef = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
 		route_map = ox.plot_route_folium(G, routef)
+		p1=[start_lat,start_long]
+		p2=[end_lat,end_long]
+		folium.Marker(location=p1, icon=folium.Icon(color='green')).add_to(route_map)
+
+		folium.Marker(location=p2, icon=folium.Icon(color='red')).add_to(route_map)
 		print("------------------4321")
 		result =  self.print_route_stats(route, G_proj)
 		filepath = 'routef.html'   
