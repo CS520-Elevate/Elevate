@@ -6,7 +6,10 @@ from tkinter import ttk
 from OSMnx import *
 from tkinter import *
 from PIL import Image, ImageTk
+import matplotlib.pyplot as plt
 import win32api
+
+
 
 
 
@@ -78,6 +81,16 @@ class View(Frame):
         # button call to navigate funtion (Should be modified to call Model.py's navigate
         def navigate():
 
+            osmnx = OSMnx()
+            print("123", get_entry())
+            #fig, result = 
+            result, fig, ax= osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'impedance')
+            print(type(fig))
+            plt.show(fig)
+            print("------------In View-------------")
+            print(result, ax)
+
+
             # validate populates thisPath variables if true
             if (validate()):
 
@@ -88,6 +101,7 @@ class View(Frame):
             else:
                 # invalid input
                 win32api.MessageBox(0, "Please enter valid coordinates.", "Error")
+
 
 
 
