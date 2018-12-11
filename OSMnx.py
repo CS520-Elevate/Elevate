@@ -4,7 +4,7 @@ import osmnx as ox, networkx as nx, numpy as np
 ox.config(log_console=True, use_cache=True)
 from View import *
 from math import sin, cos, sqrt, atan2, radians
-from IPython.display import IFrame
+
 
 
 # get the street network for Amherst
@@ -45,15 +45,8 @@ class OSMnx():
 		print("------------------4321")
 		result =  self.print_route_stats(route, G_proj)
 		fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
-		routef = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
-		route_map = ox.plot_route_folium(G, routef)
-		print("------------------4321")
-		result =  self.print_route_stats(route, G_proj)
-		filepath = 'routef.html'   
-		route_map.save(filepath)
-		IFrame(filepath, width=600, height=500)        
 		return result, fig, ax
-		
+
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
 
@@ -101,6 +94,7 @@ class OSMnx():
 
 		distance = R * c
 		return distance
+
 
 
 
