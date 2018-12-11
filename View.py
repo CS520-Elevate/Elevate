@@ -81,24 +81,27 @@ class View(Frame):
 
         # button call to navigate funtion (Should be modified to call Model.py's navigate
         def navigate():
-
-            osmnx = OSMnx()
-            print("123", get_entry())
-            #fig, result = 
-            result, fig, ax= osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'impedance')
-            print(type(fig))
-            plt.show(fig)
-            print("------------In View-------------")
-            print(result, ax)
-
-
+            
             # validate populates thisPath variables if true
             if (validate()):
-
+                
+                osmnx = OSMnx()
+                print("123", get_entry())
+                #fig, result = 
+                result, fig, ax= osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'impedance')
+                print(type(fig))
+                plt.show(fig)
+                print("------------In View-------------")
+                print(result, ax)
+                
+                self.dist = Label(self, text="Route Distance: 5").grid(row=7, column=1, columnspan=2)
+                self.elev = Label(self, text="Elevation Change: 5").grid(row=7, column=3, columnspan=2)
+                '''
                 osmnx = OSMnx()
                 fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'length')
                 print("-------------------------")
                 ImageTk.imshow(fig)
+                '''
             else:
                 # invalid input
                 win32api.MessageBox(0, "Please enter valid coordinates.", "Error")
@@ -130,7 +133,9 @@ class View(Frame):
         self.end_lat.grid(row=2, column=4)
         self.end_long.grid(row=3, column=4)
 
-
+        #Stats
+        dist = Label(self, text="Route Distance: ").grid(row=7, column=1, columnspan=2)
+        elev = Label(self, text="Elevation change: ").grid(row=7, column=3, columnspan=2)
 
         # Navigate button which will execute the program
         Button(self, text="  Navigate  ", command=navigate).grid(row=2, column=5, rowspan=2)
