@@ -27,23 +27,25 @@ class OSMnx():
 		# project the street network to UTM
 		G_proj = ox.project_graph(G)
 		# get one color for each node, by elevation, then plot the network
-		nc = ox.get_node_colors_by_attr(G_proj, 'elevation', cmap='plasma', num_bins=20)
+		#nc = ox.get_node_colors_by_attr(G_proj, 'elevation', cmap='plasma', num_bins=20)
 		#fig, ax = ox.plot_graph(G_proj, fig_height=6, node_color=nc, node_size=12, node_zorder=2, edge_color='#dddddd')
 		# get a color for each edge, by grade, then plot the network
-		ec = ox.get_edge_colors_by_attr(G_proj, 'grade_abs', cmap='plasma', num_bins=10)
+		#ec = ox.get_edge_colors_by_attr(G_proj, 'grade_abs', cmap='plasma', num_bins=10)
 		#fig, ax = ox.plot_graph(G_proj, fig_height=6, edge_color=ec, edge_linewidth=0.8, node_size=0)
 		# select an origin and destination node and a bounding box around them
 		origin = ox.get_nearest_node(G, (start_lat, start_long))
 		destination = ox.get_nearest_node(G, (end_lat , end_long))
 		bbox = ox.bbox_from_point(((start_lat + end_lat) / 2, (start_long + end_long) / 2), distance= 5000, project_utm=True)
-		
+		print("----------------1234")
 		for u, v, k, data in G_proj.edges(keys=True, data=True):
 		    data['impedance'] = self.impedance(data['length'], data['grade_abs'])
 		    data['rise'] = data['length'] * data['grade']	
+		#weight_choice = {'easy' : 'length', 'median' : 'minimum', 'hard' : 'impedance'}
 		route = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
-		fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
-
-		return fig, print_route_stats(route) 
+		print("------------------4321")
+		result =  self.print_route_stats(route, G_proj)
+		#fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
+		return self.print_route_stats(route, G_proj), result
 
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
@@ -60,20 +62,23 @@ class OSMnx():
 		# add impedance and elevation rise values to each edge in the projected graph
 		# use absolute value of grade in impedance function if you want to avoid uphill and downhill
 
-	def print_route_stats(self, route):
+	def print_route_stats(self, route, G_proj):
 	    route_grades = ox.get_route_edge_attributes(G_proj, route, 'grade_abs')
-	    msg = 'The average grade is {:.1f}% and the max is {:.1f}%'
-	    #print(msg.format(np.mean(route_grades)*100, np.max(route_grades)*100))
+	    msg_1 = 'The average grade is {:.1f}% and the max is {:.1f}%'
+	    print(msg_1.format(np.mean(route_grades)*100, np.max(route_grades)*100))
 
 	    route_rises = ox.get_route_edge_attributes(G_proj, route, 'rise')
 	    ascent = np.sum([rise for rise in route_rises if rise >= 0])
 	    descent = np.sum([rise for rise in route_rises if rise < 0])
-	    msg = 'Total elevation change is {:.0f} meters: a {:.0f} meter ascent and a {:.0f} meter descent'
-	    #print(msg.format(np.sum(route_rises), ascent, abs(descent)))
+	    msg_2 = 'Total elevation change is {:.0f} meters: a {:.0f} meter ascent and a {:.0f} meter descent'
+	    print(msg_2@.format(np.sum(route_rises), ascent, abs(descent)))
 
 	    route_lengths = ox.get_route_edge_attributes(G_proj, route, 'length')
-	    #print('Total trip distance: {:,.0f} meters'.format(np.sum(route_lengths)))
+	    msg = 'Total trip distance: {:,.0f} meters'
+	    print(msg_3.format(np.sum(route_lengths)))
+	    return (msg_1.format(np.mean(route_grades)*100, np.max(route_grades)*100), msg_2.format(np.sum(route_rises), ascent, abs(descent)), msg_3.format(np.sum(route_lengths)))
 			
+
 	def get_distance(self, sla, slo, ela, elo):
 		R = 6373.0
 		lat1 = radians(52.2296756)

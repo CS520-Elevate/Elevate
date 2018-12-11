@@ -59,9 +59,9 @@ class View(Frame):
             osmnx = OSMnx()
             print("123", get_entry())
             #fig, result = 
-            fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'length')
-            print("-------------------------")
-            ImageTk.imshow(fig)
+            fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'impedance')
+            print("------------In View-------------")
+            print(fig, result)
 
 
 
