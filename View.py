@@ -90,8 +90,8 @@ class View(Frame):
 
                 result=osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), self.difficulty.get())
                 print (result)               
-                self.dist = Label(self, text="Route Distance: %").grid(row=7, column=1, columnspan=2)
-                self.elev = Label(self, text="Elevation Change: 5").grid(row=7, column=3, columnspan=2)
+                self.dist = Label(self, text="Route Distance: " + str(result[1])).grid(row=7, column=1, columnspan=2)
+                self.elev = Label(self, text="Elevation Change: " + str(result[0])).grid(row=7, column=3, columnspan=2)
                 webbrowser.open_new_tab('routeff.html')
                 '''
                 osmnx = OSMnx()
