@@ -63,8 +63,9 @@ class OSMnx():
 		result =  self.print_route_stats(routef, G_proj)
 		filepath = 'routeff.html'   
 		route_map.save(filepath)
-		IFrame(filepath, width=600, height=500)        
-		
+		IFrame(filepath, width=600, height=500)  
+        
+		return result
 		
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
@@ -95,7 +96,7 @@ class OSMnx():
 	    route_lengths = ox.get_route_edge_attributes(G_proj, route, 'length')
 	    msg_3 = 'Total trip distance: {:,.0f} meters'
 	    print(msg_3.format(np.sum(route_lengths)))
-	    return (msg_1.format(np.mean(route_grades)*100, np.max(route_grades)*100), msg_2.format(np.sum(route_rises), ascent, abs(descent)), msg_3.format(np.sum(route_lengths)))
+	    return ([ ascent ,(int(np.sum(route_lengths))/1000)])
 			
 
 	def get_distance(self, sla, slo, ela, elo):
