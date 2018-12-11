@@ -9,7 +9,7 @@ from PIL import Image, ImageTk
 from sys import exit
 import matplotlib.pyplot as plt
 import win32api
-
+import webbrowser
 
 
 
@@ -81,7 +81,6 @@ class View(Frame):
 
         # button call to navigate funtion (Should be modified to call Model.py's navigate
         def navigate():
-            
             # validate populates thisPath variables if true
             if (validate()):
                 
@@ -96,6 +95,7 @@ class View(Frame):
                 
                 self.dist = Label(self, text="Route Distance: 5").grid(row=7, column=1, columnspan=2)
                 self.elev = Label(self, text="Elevation Change: 5").grid(row=7, column=3, columnspan=2)
+                webbrowser.open_new_tab('routef.html')
                 '''
                 osmnx = OSMnx()
                 fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'length')
