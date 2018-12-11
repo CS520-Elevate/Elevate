@@ -14,8 +14,8 @@ class OSMnx():
 
 		
 	def get_map(self, start_lat, start_long, end_lat, end_long, chosen_weight):
-		print("123", start_lat, start_long, end_lat, end_long,)
-        
+		print("Coordinates", start_lat, start_long, end_lat, end_long,)
+		print("weight",chosen_weight)
 		place = 'Amherst'
 		place_query = {'city': 'Amherst', 'state': 'Massachusetts', 'country': 'USA'}
 		G = ox.graph_from_place(place_query, network_type='drive')
@@ -25,10 +25,10 @@ class OSMnx():
 		avg_grade = np.mean(edge_grades)
 		#print('Average street grade in {} is {:.1f}%'.format(place, avg_grade*100))
 		if chosen_weight==0:
-			choice='minimum'
-		elif chosen_weight==1:
 			choice='length'
-		else:
+		elif chosen_weight==1:
+			choice='minimum'
+		elif chosen_weight==2:
 			choice='impedence'
 		med_grade = np.median(edge_grades)
 		#print('Median street grade in {} is {:.1f}%'.format(place, med_grade*100))
@@ -44,7 +44,7 @@ class OSMnx():
 		origin = ox.get_nearest_node(G, (start_lat, start_long))
 		destination = ox.get_nearest_node(G, (end_lat , end_long))
 		bbox = ox.bbox_from_point(((start_lat + end_lat) / 2, (start_long + end_long) / 2), distance= 5000, project_utm=True)
-		print("----------------1234")
+		
 		for u, v, k, data in G_proj.edges(keys=True, data=True):
 		    data['impedance'] = self.impedance(data['length'], data['grade_abs'])
 		    data['rise'] = data['length'] * data['grade']	
@@ -65,7 +65,7 @@ class OSMnx():
 		route_map.save(filepath)
 		IFrame(filepath, width=600, height=500)        
 		
-        
+		
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
 
