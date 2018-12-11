@@ -6,6 +6,7 @@ from tkinter import ttk
 from OSMnx import *
 from tkinter import *
 from PIL import Image, ImageTk
+from sys import exit
 import matplotlib.pyplot as plt
 import win32api
 
@@ -141,6 +142,7 @@ class View(Frame):
         Radiobutton(self, text="Medium", variable=self.difficulty, value=1).grid(row=4, column=3)
         Radiobutton(self, text="Hard", variable=self.difficulty, value=2).grid(row=4, column=4)
 
+        '''
         # TODO: Have image area display the navigated map
         # Display area, currently static image
         image = Image.open("image.png")
@@ -167,7 +169,7 @@ class View(Frame):
             else:
                 c.delete(tiles[row][col])
                 tiles[row][col] = None
-
+        
         w = img.width()
         h = img.height()
         c = Canvas(self, width=w, height=h)
@@ -176,4 +178,4 @@ class View(Frame):
         c.bind("<Button-1>", callback)
 
         # Quit button
-        Button(self, text="  Quit  ", command=client_exit).grid(row=6, column=5, pady=5)
+        Button(self, text="  Quit  ", command=client_exit).grid(row=6, column=5, pady=5)'''
