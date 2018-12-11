@@ -12,7 +12,7 @@ class OSMnx():
 
 		
 	def get_map(self, start_lat, start_long, end_lat, end_long, chosen_weight):
-		print("123", start_lat, start_long, end_lat, end_long,)
+		print("1234", start_lat, start_long, end_lat, end_long,)
 		place = 'Amherst'
 		place_query = {'city': 'Amherst', 'state': 'Massachusetts', 'country': 'USA'}
 		G = ox.graph_from_place(place_query, network_type='drive')
