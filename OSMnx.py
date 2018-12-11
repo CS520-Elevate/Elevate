@@ -15,6 +15,7 @@ class OSMnx():
 		
 	def get_map(self, start_lat, start_long, end_lat, end_long, chosen_weight):
 		print("123", start_lat, start_long, end_lat, end_long,)
+        
 		place = 'Amherst'
 		place_query = {'city': 'Amherst', 'state': 'Massachusetts', 'country': 'USA'}
 		G = ox.graph_from_place(place_query, network_type='drive')
@@ -23,7 +24,12 @@ class OSMnx():
 		edge_grades = [data['grade_abs'] for u, v, k, data in ox.get_undirected(G).edges(keys=True, data=True)]
 		avg_grade = np.mean(edge_grades)
 		#print('Average street grade in {} is {:.1f}%'.format(place, avg_grade*100))
-
+		if chosen_weight==0:
+			choice='minimum'
+		elif chosen_weight==1:
+			choice='length'
+		else:
+			choice='impedence'
 		med_grade = np.median(edge_grades)
 		#print('Median street grade in {} is {:.1f}%'.format(place, med_grade*100))
 		# project the street network to UTM
@@ -43,11 +49,10 @@ class OSMnx():
 		    data['impedance'] = self.impedance(data['length'], data['grade_abs'])
 		    data['rise'] = data['length'] * data['grade']	
 		#weight_choice = {'easy' : 'length', 'median' : 'minimum', 'hard' : 'impedance'}
-		route = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
-		print("------------------4321")
-		result =  self.print_route_stats(route, G_proj)
-		fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
-		routef = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
+		
+		
+		
+		routef = nx.shortest_path(G_proj, source=origin, target=destination, weight = choice)
 		route_map = ox.plot_route_folium(G, routef)
 		p1=[start_lat,start_long]
 		p2=[end_lat,end_long]
@@ -55,12 +60,12 @@ class OSMnx():
 
 		folium.Marker(location=p2, icon=folium.Icon(color='red')).add_to(route_map)
 		print("------------------4321")
-		result =  self.print_route_stats(route, G_proj)
+		result =  self.print_route_stats(routef, G_proj)
 		filepath = 'routeff.html'   
 		route_map.save(filepath)
 		IFrame(filepath, width=600, height=500)        
-		return result, fig, ax
 		
+        
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
 
