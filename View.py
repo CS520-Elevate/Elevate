@@ -6,6 +6,9 @@ from tkinter import ttk
 from OSMnx import *
 from tkinter import *
 from PIL import Image, ImageTk
+import matplotlib.pyplot as plt
+
+
 
 
 
@@ -59,9 +62,11 @@ class View(Frame):
             osmnx = OSMnx()
             print("123", get_entry())
             #fig, result = 
-            fig, result = osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'impedance')
+            result, fig, ax= osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), 'impedance')
+            print(type(fig))
+            plt.show(fig)
             print("------------In View-------------")
-            print(fig, result)
+            print(result, ax)
 
 
 

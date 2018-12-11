@@ -44,8 +44,8 @@ class OSMnx():
 		route = nx.shortest_path(G_proj, source=origin, target=destination, weight = chosen_weight)
 		print("------------------4321")
 		result =  self.print_route_stats(route, G_proj)
-		#fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
-		return self.print_route_stats(route, G_proj), result
+		fig, ax = ox.plot_graph_route(G_proj, route, bbox=bbox, node_size=0)
+		return result, fig, ax
 
 		# route_by_impedance = nx.shortest_path(G_proj, source=origin, target=destination, weight='impedance')
 		# fig, ax = ox.plot_graph_route(G_proj, route_by_impedance, bbox=bbox, node_size=0)
@@ -71,10 +71,10 @@ class OSMnx():
 	    ascent = np.sum([rise for rise in route_rises if rise >= 0])
 	    descent = np.sum([rise for rise in route_rises if rise < 0])
 	    msg_2 = 'Total elevation change is {:.0f} meters: a {:.0f} meter ascent and a {:.0f} meter descent'
-	    print(msg_2@.format(np.sum(route_rises), ascent, abs(descent)))
+	    print(msg_2.format(np.sum(route_rises), ascent, abs(descent)))
 
 	    route_lengths = ox.get_route_edge_attributes(G_proj, route, 'length')
-	    msg = 'Total trip distance: {:,.0f} meters'
+	    msg_3 = 'Total trip distance: {:,.0f} meters'
 	    print(msg_3.format(np.sum(route_lengths)))
 	    return (msg_1.format(np.mean(route_grades)*100, np.max(route_grades)*100), msg_2.format(np.sum(route_rises), ascent, abs(descent)), msg_3.format(np.sum(route_lengths)))
 			
