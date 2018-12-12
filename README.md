@@ -12,16 +12,24 @@ git clone https://github.com/CS520-Elevate/Elevate
 ```
 
 ### Prerequisites
+Python Programming Language
 
-
-```
-
-```
 
 ### Installing
+OSMNX
+```
+pip install osmnx
+```
+Note: If you are pip installing OSMnx, install geopandas and rtree first. It's easiest to use conda-forge to get these dependencies installed.
+
+with conda:
+```
+conda install -c conda-forge osmnx
 
 ```
-
+Folium
+```
+pip install folium
 ```
 
 ###Run the Program
