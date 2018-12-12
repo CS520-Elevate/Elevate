@@ -8,7 +8,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from sys import exit
 import matplotlib.pyplot as plt
-import win32api
+from tkinter import messagebox
 import webbrowser
 
 # Instance of MapPath, used to hold our user input privately.
@@ -59,10 +59,10 @@ class View(Frame):
             if (validateLatitude(self.start_lat.get()) and validateLongitude(self.start_long.get())
                 and validateLatitude(self.end_lat.get()) and validateLongitude(self.end_long.get())):
 
-                thisPath.setStartLatitude(self.start_lat.get())
-                thisPath.setStartLongitude(self.start_long.get())
-                thisPath.setEndLatitude(self.end_lat.get())
-                thisPath.setEndLongitude(self.end_long.get())
+                thisPath.setStartLatitude(float(self.start_lat.get()))
+                thisPath.setStartLongitude(float(self.start_long.get()))
+                thisPath.setEndLatitude(float(self.end_lat.get()))
+                thisPath.setEndLongitude(float(self.end_long.get()))
                 thisPath.setDifficulty(self.difficulty.get())
 
                 return True
@@ -75,10 +75,9 @@ class View(Frame):
             if (validate()):
                 
                 osmnx = OSMnx()
-                print("123", get_entry())
-                #fig, result = 
 
-                result=osmnx.get_map(float(get_entry()[0]), float(get_entry()[1]), float(get_entry()[2]), float(get_entry()[3]), self.difficulty.get())
+                result=osmnx.get_map(thisPath.getStartLatitude(), thisPath.getStartLongitude(),
+                    thisPath.getEndLatitude(), thisPath.getEndLongitude(), thisPath.getDifficulty())
                               
                 self.dist = Label(self, text="Route Distance(m): " + str(result[1])).grid(row=7, column=1, columnspan=2)
                 self.elev = Label(self, text="Ascent: " + str(result[0])).grid(row=7, column=3, columnspan=2)
@@ -86,7 +85,7 @@ class View(Frame):
                
             else:
                 # invalid input
-                win32api.MessageBox(0, "Please enter valid coordinates.", "Error")
+                messagebox.showinfo("Error", "Invalid Input")
 
         self.master.title("Elevate")
 
