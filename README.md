@@ -33,10 +33,12 @@ pip install folium
 ```
 
 ###Run the Program
-
+Once the repository is cloned, simply run the following from the repository
 ```
-
+python main.py
 ```
+You will be asked to enter the origin and destination coordinates and select the difficulty you would desire with respect to elevation.
+Then the route will be displayed as an .html file.
 ## Authors
 
 See the list of [contributors](https://github.com/CS520-Elevate/Elevate/settings/collaboration) who participated in this project.
