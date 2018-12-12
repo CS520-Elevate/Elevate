@@ -15,7 +15,7 @@ git clone https://github.com/CS520-Elevate/Elevate
 Python Programming Language
 
 
-### Installing
+### Installation
 OSMNX
 ```
 pip install osmnx
