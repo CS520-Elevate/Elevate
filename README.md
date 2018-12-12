@@ -12,23 +12,33 @@ git clone https://github.com/CS520-Elevate/Elevate
 ```
 
 ### Prerequisites
+Python Programming Language
 
+
+### Installation
+OSMNX
+```
+pip install osmnx
+```
+Note: If you are pip installing OSMnx, install geopandas and rtree first. It's easiest to use conda-forge to get these dependencies installed.
+
+with conda:
+```
+conda install -c conda-forge osmnx
 
 ```
-
+Folium
+```
+pip install folium
 ```
 
-### Installing
-
+### Execution
+Once the repository is cloned, simply run the following from the repository
 ```
-
+python main.py
 ```
-
-###Run the Program
-
-```
-
-```
+You will be asked to enter the origin and destination coordinates and select the difficulty you would desire with respect to elevation.
+Then the route will be displayed as an .html file.
 ## Authors
 
 See the list of [contributors](https://github.com/CS520-Elevate/Elevate/settings/collaboration) who participated in this project.
