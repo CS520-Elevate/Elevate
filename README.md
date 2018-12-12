@@ -32,7 +32,7 @@ Folium
 pip install folium
 ```
 
-###Run the Program
+### Execution
 Once the repository is cloned, simply run the following from the repository
 ```
 python main.py
